@@ -1,0 +1,440 @@
+alter table student add status number default 1;
+select * from student;
+
+
+alter table teacher drop column status;
+alter table teacher add status number default 3;
+select * from teacher;
+
+alter table members add status number default 4;
+
+commit;
+-- 1학생 테이블
+create table student(       
+    student_id varchar2(20) primary key,
+    student_password varchar2(20) not null,
+    student_name varchar2(20) not null,
+    student_address varchar2(20) not null,
+    student_gender varchar2(20) not null,
+    student_birth varchar2(20) not null,
+    lecture_room varchar2(20) not null,
+    remark varchar2(50)
+);
+
+commit;
+-------------------------------------------------------
+-------------------------------------------------------
+--2강사 테이블
+create table teacher(       
+    teacher_id varchar2(20) primary key,
+    teacher_password varchar2(20) not null,
+    teacher_name varchar2(20) not null,
+    teacher_address varchar2(20) not null,
+    teacher_gender varchar2(20) not null,
+    teacher_birth varchar2(20) not null,
+    lecture_room varchar2(20) not null,
+    remark varchar2(50)
+);
+
+create sequence boardseq start with 1 increment by 1 nocache ;
+--3게시판 테이블(생성함)
+create table board(
+    b_no number primary key,
+    title varchar2(200) not null,
+    writer varchar2(30) not null,
+    b_date date default sysdate not null,
+    b_content varchar2(200),
+    lecture_room varchar2(20) not null
+);
+
+-- 4출석 테이블(생성됨)
+create table attendence(
+    student_id varchar(20) ,
+    student_name varchar(40),
+    att_date date,
+    att varchar(20),
+    reason varchar(20),
+    remark varchar2(50)
+);
+alter table attendence
+add constraint attendence_student_id_fk
+foreign key(student_id) references student(student_id);
+
+
+-- 5과목 테이블
+create table subject(
+    s_code  varchar2(50) primary key,
+    s_name varchar2(30)
+);
+
+-- 6강의 테이블
+create table lecture( 
+    student_id varchar2(20), -- 강의를 듣는 학생 id
+    teacher_id varchar2(20), -- 강의를 하는 강사 id
+    s_code varchar2(30), -- 강의 하는 과목의 코드
+    lecture_score number, -- 강의에서 하는 과목의 점수
+    remark varchar2(50)
+);
+
+alter table lecture
+add constraint lecture_student_id_fk
+foreign key(student_id) references student(student_id);
+
+alter table lecture
+add constraint lecture_teacher_id_fk
+foreign key(teacher_id) references teacher(teacher_id);
+
+alter table lecture
+add constraint lecture_s_code_fk
+foreign key(s_code) references subject(s_code);
+
+commit;
+select * from attendence;
+select * from tab;
+
+-- 10 11 12 강의실 각 3명씩
+insert into student(student_id, student_name, student_password, student_gender, student_birth, student_address, lecture_room)
+values('yusin1', '김유신1', 'abc1234', '남자', '1991/12/25', '광주', '10강의실') ;
+insert into student(student_id, student_name, student_password, student_gender, student_birth, student_address, lecture_room)
+values('yusin2', '김유신2', 'abc1234', '여자', '1992/12/25', '용산', '10강의실') ;
+insert into student(student_id, student_name, student_password, student_gender, student_birth, student_address, lecture_room)
+values('yusin3', '김유신3', 'abc1234', '남자', '1993/12/25', '부산', '10강의실');
+insert into student(student_id, student_name, student_password, student_gender, student_birth, student_address, lecture_room)
+values('yusin4', '김유신4', 'abc1234', '여자', '1994/12/25', '울산', '11강의실') ;
+insert into student(student_id, student_name, student_password, student_gender, student_birth, student_address, lecture_room)
+values('yusin5', '김유신5', 'abc1234', '남자', '1995/12/25', '경기', '11강의실') ;
+insert into student(student_id, student_name, student_password, student_gender, student_birth, student_address, lecture_room)
+values('yusin6', '김유신6', 'abc1234', '여자', '1996/12/25', '서울', '11강의실') ;
+insert into student(student_id, student_name, student_password, student_gender, student_birth, student_address, lecture_room)
+values('yusin7', '김유신7', 'abc1234', '남자', '1997/12/25', '한라', '12강의실') ;
+insert into student(student_id, student_name, student_password, student_gender, student_birth, student_address, lecture_room)
+values('yusin8', '김유신8', 'abc1234', '여자', '1998/12/25', '남산', '12강의실') ;
+insert into student(student_id, student_name, student_password, student_gender, student_birth, student_address, lecture_room)
+values('yusin9', '김유신9', 'abc1234', '남자', '1999/12/25', '군산', '12강의실') ;
+
+--강사 3명
+insert into teacher(teacher_id, teacher_name, teacher_password, teacher_gender, teacher_birth, teacher_address, lecture_room)
+values('teacher1', ' 강사1', 'abc1234', '여자', '1911/12/25', '대구', '10강의실') ;
+insert into teacher(teacher_id, teacher_name, teacher_password, teacher_gender, teacher_birth, teacher_address, lecture_room)
+values('teacher2', '강사2', 'abc1234', '남자', '1921/12/25', '충청', '11강의실') ;
+insert into teacher(teacher_id, teacher_name, teacher_password, teacher_gender, teacher_birth, teacher_address, lecture_room)
+values('teacher3', '강사3', 'abc1234', '여자', '1931/12/25', '충북', '12강의실') ;
+
+--과목 6개
+insert into subject(s_code,s_name)
+values('java','자바');
+insert into subject(s_code,s_name)
+values('Cprogramming','C언어');
+insert into subject(s_code,s_name)
+values('html','html');
+insert into subject(s_code,s_name)
+values('jQuery','jQuery');
+insert into subject(s_code,s_name)
+values('db','db');
+insert into subject(s_code,s_name)
+values('jsp','jsp');
+
+--강의 
+insert into lecture(student_id,teacher_id,s_code,lecture_score)
+values('yusin1', 'teacher1', 'java', 0) ;
+insert into lecture(student_id,teacher_id,s_code,lecture_score)
+values('yusin2', 'teacher1', 'java', 0) ;
+insert into lecture(student_id,teacher_id,s_code,lecture_score)
+values('yusin3', 'teacher1', 'java', 0) ;
+insert into lecture(student_id,teacher_id,s_code,lecture_score)
+values('yusin1', 'teacher1', 'jsp', 0) ;
+insert into lecture(student_id,teacher_id,s_code,lecture_score)
+values('yusin2', 'teacher1', 'jsp', 0) ;
+insert into lecture(student_id,teacher_id,s_code,lecture_score)
+values('yusin3', 'teacher1', 'jsp', 0) ;
+insert into lecture(student_id,teacher_id,s_code,lecture_score)
+values('yusin4', 'teacher2', 'html', 0) ;
+insert into lecture(student_id,teacher_id,s_code,lecture_score)
+values('yusin5', 'teacher2', 'html', 0) ;
+insert into lecture(student_id,teacher_id,s_code,lecture_score)
+values('yusin6', 'teacher2', 'html', 0) ;
+insert into lecture(student_id,teacher_id,s_code,lecture_score)
+values('yusin7', 'teacher3', 'html', 0) ;
+insert into lecture(student_id,teacher_id,s_code,lecture_score)
+values('yusin8', 'teacher3', 'html', 0) ;
+insert into lecture(student_id,teacher_id,s_code,lecture_score)
+values('yusin9', 'teacher3', 'html', 0) ;
+
+--출석 
+insert into attendence(student_id,student_name,att_date,att)
+values('yusin1','김유신1','2022/04/01','출석');
+insert into attendence(student_id,student_name,att_date,att)
+values('yusin2','김유신2','2022/04/01','지각');
+insert into attendence(student_id,student_name,att_date,att)
+values('yusin3','김유신3','2022/04/01','조퇴');
+insert into attendence(student_id,student_name,att_date,att)
+values('yusin4','김유신4','2022/04/01','병결');
+insert into attendence(student_id,student_name,att_date,att)
+values('yusin5','김유신5','2022/04/01','출석');
+insert into attendence(student_id,student_name,att_date,att)
+values('yusin6','김유신6','2022/04/01','조퇴');
+insert into attendence(student_id,student_name,att_date,att)
+values('yusin7','김유신7','2022/04/01','출석');
+insert into attendence(student_id,student_name,att_date,att)
+values('yusin8','김유신8','2022/04/01','출석');
+insert into attendence(student_id,student_name,att_date,att)
+values('yusin9','김유신9','2022/04/01','출석');
+
+insert into attendence(student_id,student_name,att_date,att)
+values('yusin1','김유신1','2022/04/02','출석');
+insert into attendence(student_id,student_name,att_date,att)
+values('yusin2','김유신2','2022/04/02','출석');
+insert into attendence(student_id,student_name,att_date,att)
+values('yusin3','김유신3','2022/04/02','출석');
+insert into attendence(student_id,student_name,att_date,att)
+values('yusin4','김유신4','2022/04/02','출석');
+insert into attendence(student_id,student_name,att_date,att)
+values('yusin5','김유신5','2022/04/02','출석');
+insert into attendence(student_id,student_name,att_date,att)
+values('yusin6','김유신6','2022/04/02','출석');
+insert into attendence(student_id,student_name,att_date,att)
+values('yusin7','김유신7','2022/04/02','출석');
+insert into attendence(student_id,student_name,att_date,att)
+values('yusin8','김유신8','2022/04/02','출석');
+insert into attendence(student_id,student_name,att_date,att)
+values('yusin9','김유신9','2022/04/02','출석');
+
+insert into attendence(student_id,student_name,att_date,att)
+values('yusin1','김유신1','2022/04/03','출석');
+insert into attendence(student_id,student_name,att_date,att)
+values('yusin2','김유신2','2022/04/03','출석');
+insert into attendence(student_id,student_name,att_date,att)
+values('yusin3','김유신3','2022/04/03','조퇴');
+insert into attendence(student_id,student_name,att_date,att)
+values('yusin4','김유신4','2022/04/03','병결');
+insert into attendence(student_id,student_name,att_date,att)
+values('yusin5','김유신5','2022/04/03','출석');
+insert into attendence(student_id,student_name,att_date,att)
+values('yusin6','김유신6','2022/04/03','조퇴');
+insert into attendence(student_id,student_name,att_date,att)
+values('yusin7','김유신7','2022/04/03','출석');
+insert into attendence(student_id,student_name,att_date,att)
+values('yusin8','김유신8','2022/04/03','출석');
+insert into attendence(student_id,student_name,att_date,att)
+values('yusin9','김유신9','2022/04/03','조퇴');
+
+
+
+
+insert into lecture(student_id,teacher_id,s_code,lecture_score)
+values('yusin1', 'teacher1', 'java', 0) ;
+insert into lecture(student_id,teacher_id,s_code,lecture_score)
+values('yusin2', 'teacher1', 'java', 0) ;
+insert into lecture(student_id,teacher_id,s_code,lecture_score)
+values('yusin3', 'teacher1', 'java', 0) ;
+insert into lecture(student_id,teacher_id,s_code,lecture_score)
+values('yusin1', 'teacher1', 'jsp', 0) ;
+insert into lecture(student_id,teacher_id,s_code,lecture_score)
+values('yusin2', 'teacher1', 'jsp', 0) ;
+insert into lecture(student_id,teacher_id,s_code,lecture_score)
+values('yusin3', 'teacher1', 'jsp', 0) ;
+insert into lecture(student_id,teacher_id,s_code,lecture_score)
+values('yusin4', 'teacher2', 'html', 0) ;
+insert into lecture(student_id,teacher_id,s_code,lecture_score)
+values('yusin5', 'teacher2', 'html', 0) ;
+insert into lecture(student_id,teacher_id,s_code,lecture_score)
+values('yusin6', 'teacher2', 'html', 0) ;
+insert into lecture(student_id,teacher_id,s_code,lecture_score)
+values('yusin7', 'teacher3', 'html', 0) ;
+insert into lecture(student_id,teacher_id,s_code,lecture_score)
+values('yusin8', 'teacher3', 'html', 0) ;
+insert into lecture(student_id,teacher_id,s_code,lecture_score)
+values('yusin9', 'teacher3', 'html', 0) ;
+
+insert into attendence(student_id,student_name,att_date,att)
+values('yusin1','김유신1','2022/04/01','출석');
+insert into attendence(student_id,student_name,att_date,att)
+values('yusin2','김유신2','2022/04/01','지각');
+insert into attendence(student_id,student_name,att_date,att)
+values('yusin3','김유신3','2022/04/01','조퇴');
+insert into attendence(student_id,student_name,att_date,att)
+values('yusin4','김유신4','2022/04/01','병결');
+insert into attendence(student_id,student_name,att_date,att)
+values('yusin5','김유신5','2022/04/01','출석');
+insert into attendence(student_id,student_name,att_date,att)
+values('yusin6','김유신6','2022/04/01','조퇴');
+insert into attendence(student_id,student_name,att_date,att)
+values('yusin7','김유신7','2022/04/01','출석');
+insert into attendence(student_id,student_name,att_date,att)
+values('yusin8','김유신8','2022/04/01','출석');
+insert into attendence(student_id,student_name,att_date,att)
+values('yusin9','김유신9','2022/04/01','출석');
+
+insert into attendence(student_id,student_name,att_date,att)
+values('yusin1','김유신1','2022/04/02','출석');
+insert into attendence(student_id,student_name,att_date,att)
+values('yusin2','김유신2','2022/04/02','출석');
+insert into attendence(student_id,student_name,att_date,att)
+values('yusin3','김유신3','2022/04/02','출석');
+insert into attendence(student_id,student_name,att_date,att)
+values('yusin4','김유신4','2022/04/02','출석');
+insert into attendence(student_id,student_name,att_date,att)
+values('yusin5','김유신5','2022/04/02','출석');
+insert into attendence(student_id,student_name,att_date,att)
+values('yusin6','김유신6','2022/04/02','출석');
+insert into attendence(student_id,student_name,att_date,att)
+values('yusin7','김유신7','2022/04/02','출석');
+insert into attendence(student_id,student_name,att_date,att)
+values('yusin8','김유신8','2022/04/02','출석');
+insert into attendence(student_id,student_name,att_date,att)
+values('yusin9','김유신9','2022/04/02','출석');
+
+insert into attendence(student_id,student_name,att_date,att)
+values('yusin1','김유신1','2022/04/03','출석');
+insert into attendence(student_id,student_name,att_date,att)
+values('yusin2','김유신2','2022/04/03','출석');
+insert into attendence(student_id,student_name,att_date,att)
+values('yusin3','김유신3','2022/04/03','조퇴');
+insert into attendence(student_id,student_name,att_date,att)
+values('yusin4','김유신4','2022/04/03','병결');
+insert into attendence(student_id,student_name,att_date,att)
+values('yusin5','김유신5','2022/04/03','출석');
+insert into attendence(student_id,student_name,att_date,att)
+values('yusin6','김유신6','2022/04/03','조퇴');
+insert into attendence(student_id,student_name,att_date,att)
+values('yusin7','김유신7','2022/04/03','출석');
+insert into attendence(student_id,student_name,att_date,att)
+values('yusin8','김유신8','2022/04/03','출석');
+insert into attendence(student_id,student_name,att_date,att)
+values('yusin9','김유신9','2022/04/03','조퇴');
+
+create table members(
+    member_id  varchar2(50) primary key,
+    member_password varchar2(30),
+    member_name varchar2(30)
+);
+insert into members
+values ('admin','1234','관리자');
+
+select*
+from student;
+
+select*
+from teacher;
+
+select*
+from subject;
+
+select*
+from attendence;
+
+select*
+from members;
+
+commit;
+
+
+-------------
+-------------
+-------------
+drop table attendence;
+
+create sequence attseq start with 1 increment by 1 nocache ;
+-- 4출석 테이블(생성됨)
+
+create table attendence(
+    a_no number primary key,
+    student_id varchar(20) ,
+    student_name varchar(40),
+    att_date date,
+    att varchar(20),
+    reason varchar(20),
+    remark varchar2(50)
+);
+--출석 
+insert into attendence(a_no,  student_id,student_name,att_date,att)
+values(attseq.nextval, 'yusin1','김유신1','2022/04/01','출석');
+insert into attendence(a_no,  student_id,student_name,att_date,att)
+values(attseq.nextval, 'yusin2','김유신2','2022/04/01','지각');
+insert into attendence(a_no,  student_id,student_name,att_date,att)
+values(attseq.nextval, 'yusin3','김유신3','2022/04/01','조퇴');
+insert into attendence(a_no,  student_id,student_name,att_date,att)
+values(attseq.nextval, 'yusin4','김유신4','2022/04/01','병결');
+insert into attendence(a_no,  student_id,student_name,att_date,att)
+values(attseq.nextval, 'yusin5','김유신5','2022/04/01','출석');
+insert into attendence(a_no,  student_id,student_name,att_date,att)
+values(attseq.nextval, 'yusin6','김유신6','2022/04/01','조퇴');
+insert into attendence(a_no,  student_id,student_name,att_date,att)
+values(attseq.nextval, 'yusin7','김유신7','2022/04/01','출석');
+insert into attendence(a_no,  student_id,student_name,att_date,att)
+values(attseq.nextval, 'yusin8','김유신8','2022/04/01','출석');
+insert into attendence(a_no,  student_id,student_name,att_date,att)
+values(attseq.nextval, 'yusin9','김유신9','2022/04/01','출석');
+
+insert into attendence(a_no,  student_id,student_name,att_date,att)
+values(attseq.nextval, 'yusin1','김유신1','2022/04/02','출석');
+insert into attendence(a_no,  student_id,student_name,att_date,att)
+values(attseq.nextval, 'yusin2','김유신2','2022/04/02','출석');
+insert into attendence(a_no,  student_id,student_name,att_date,att)
+values(attseq.nextval, 'yusin3','김유신3','2022/04/02','출석');
+insert into attendence(a_no,  student_id,student_name,att_date,att)
+values(attseq.nextval, 'yusin4','김유신4','2022/04/02','출석');
+insert into attendence(a_no,  student_id,student_name,att_date,att)
+values(attseq.nextval, 'yusin5','김유신5','2022/04/02','출석');
+insert into attendence(a_no,  student_id,student_name,att_date,att)
+values(attseq.nextval, 'yusin6','김유신6','2022/04/02','출석');
+insert into attendence(a_no,  student_id,student_name,att_date,att)
+values(attseq.nextval, 'yusin7','김유신7','2022/04/02','출석');
+insert into attendence(a_no,  student_id,student_name,att_date,att)
+values(attseq.nextval, 'yusin8','김유신8','2022/04/02','출석');
+insert into attendence(a_no,  student_id,student_name,att_date,att)
+values(attseq.nextval, 'yusin9','김유신9','2022/04/02','출석');
+
+insert into attendence(a_no,  student_id,student_name,att_date,att)
+values(attseq.nextval, 'yusin1','김유신1','2022/04/03','출석');
+insert into attendence(a_no,  student_id,student_name,att_date,att)
+values(attseq.nextval, 'yusin2','김유신2','2022/04/03','출석');
+insert into attendence(a_no,  student_id,student_name,att_date,att)
+values(attseq.nextval, 'yusin3','김유신3','2022/04/03','조퇴');
+insert into attendence(a_no,  student_id,student_name,att_date,att)
+values(attseq.nextval, 'yusin4','김유신4','2022/04/03','병결');
+insert into attendence(a_no,  student_id,student_name,att_date,att)
+values(attseq.nextval, 'yusin5','김유신5','2022/04/03','출석');
+insert into attendence(a_no,  student_id,student_name,att_date,att)
+values(attseq.nextval, 'yusin6','김유신6','2022/04/03','조퇴');
+insert into attendence(a_no,  student_id,student_name,att_date,att)
+values(attseq.nextval, 'yusin7','김유신7','2022/04/03','출석');
+insert into attendence(a_no,  student_id,student_name,att_date,att)
+values(attseq.nextval, 'yusin8','김유신8','2022/04/03','출석');
+insert into attendence(a_no,  student_id,student_name,att_date,att)
+values(attseq.nextval, 'yusin9','김유신9','2022/04/03','조퇴');
+
+
+			 select * from student 
+			 where lecture_room in( 
+			 select lecture_room 
+			 from teacher 
+			 where teacher_id = 'teacher3') ;
+		
+
+---------
+ select * from ( select  student_id , student_name ,student_gender , student_birth ,student_address , lecture_room from student) 
+where lecture_room in( 
+select lecture_room 
+from teacher 
+where teacher_id = 'teacher3');
+
+-----------
+select * from (  select row_number() over(order by student_name ) as ranking , a_no, student_id, student_name, att_date, att, reason, remark 
+from attendence) 
+where student_id in ( select student_id 
+from lecture 
+where teacher_id= 'teacher2') and ranking between 1 and 5;
+
+-------------------------------
+select * from lecture where teacher_id = 'teacher1';
+
+select * from lecture where student_id = 'yusin1' and s_code = 'java';
+
+commit;
+
+select distinct student_id
+from lecture
+where teacher_id='teacher1';
+
+select student_id from student where lecture_room in(select lecture_room from teacher where teacher_id = 'teacher1');
