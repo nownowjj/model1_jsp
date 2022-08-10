@@ -1,0 +1,178 @@
+@charset "UTF-8";
+        .outer {
+            width: 320px;
+            height: 320px;
+            position: relative;
+            border: 2px solid green;
+            border-radius: 50%;
+            margin: 25% auto;
+        }
+/*  */
+.text-area{
+	height: 100px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.typing-demo{
+	width: 50ch;
+	animation: typing steps(45), blink 0.5s step-end alternate;
+	animation-duration:3s; 
+	animation-iteration-count:1;
+	animation-fill-mode:none;
+	white-space: nowrap;
+	overflow: hidden;
+	border-right: 3px;
+	font-family: monospace;
+	font-size: 3em;
+}
+.last{
+	animation: blink-effect 1s step-end infinite;
+}
+@keyframes typing{
+	from{
+		width:0;
+	}
+} 
+@keyframes blink{
+	50%{
+		border-color: transparent;
+	}
+}
+@keyframes blink-effect{
+	50% {
+    opacity: 0;
+  }
+}
+.bx-wrapper{
+	margin: 50px auto;
+	margin-bottom: 150px;
+}
+.bx-wrapper .bx-caption{
+	visibility: hidden;
+}
+#map{
+	border: 1px solid red;
+	margin-top:150px;
+}
+			.cardContainer-box{
+				width: 100%;
+/* 				border: 1px solid red; */
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				margin-bottom:50px;
+			}
+			/* 카드 크기 */
+			div.cardContainer{
+                width:350px;
+                height:300px;
+                margin: 0px 30px;
+            }
+            .card{
+            	border:1px solid #e8e8e8;
+            	border-radius: 20px;
+            	font-weight:bold;
+            	color:black;
+            }
+            .front{
+            	background:#e8e8e8;
+            }
+            .back{
+            	background:#eee;
+            	display: flex;
+            	align-items: center;
+            	justify-content: center;
+            	flex-direction: column;
+/*             	color: #fff; */
+            	
+            }
+            div.cardContainer div{
+                height:inherit;
+                font-size:24px;
+				backface-visibility:hidden; 
+				-webkit-backface-visibility:hidden; 
+                transition:all 1s;
+                -webkit-transition:all 1s;
+                -moz-transition:all 1s;
+                -o-transition:all 1s;
+                text-align:center;
+            }
+            div.cardContainer div:last-child{
+				position:relative; 
+                top:-300px; 
+                transform:rotateY(180deg);
+                -webkit-transform:rotateY(180deg);
+                -ms-transform:rotateY(180deg);
+                -moz-transform:rotateY(180deg);
+                -o-transform:rotateY(180deg);
+                background-color: #ffcccc;
+            }
+            div.cardContainer:hover div:first-child{
+                transform:rotateY(-180deg);
+                -webkit-transform:rotateY(-180deg);
+                -ms-transform:rotateY(-180deg);
+                -moz-transform:rotateY(-180deg);
+                -o-transform:rotateY(-180deg);
+            }
+            div.cardContainer:hover div:last-child{
+                transform:rotateY(0deg);
+                -webkit-transform:rotateY(0deg);
+                -ms-transform:rotateY(0deg);
+                -moz-transform:rotateY(0deg);
+                -o-transform:rotateY(0deg);
+            }
+            .min{
+/*             	background-image: url("https://t4.daumcdn.net/thumb/R720x0/?fname=http://t1.daumcdn.net/brunch/service/user/20g0/image/JZ0We08Rc8Q8ruCiwvmRWKNc9hI.png"); */
+            	background-image: url("https://cdn.clien.net/web/api/file/F01/6138183/1d3d3b76d04d4d.jpg");
+            	background-size:100% 100%;
+            	background-repeat: no-repeat;
+            	background-position: center;
+            }
+            .joo{
+             	background-image: url("https://w.namu.la/s/8a58638bee1ded0d98345fb4bd6815df3731bb224b7f6655c2e33d9c09f56ad0753b740c72faa529057c8a307fceecf85fcfb544209f30dc1c7d8c5542a6d2e61bdb84c95556cc37c330e5b231d768b5"); 
+            	background-size:83% 90%;
+            	background-repeat: no-repeat;
+            	background-position: center;
+            }
+            .ji{
+            	background-image: url("https://ww.namu.la/s/a7832e1be0f0a5620f53b6761010ab29642df6cf2e8f57cb3c082337e9ba4234bcbed24dae9f6f41113b83882b23caaa067f984a0c47c03a9ec16ec2c6d1e4402f8e183a41bd16c623a402ba860baa84");
+            	background-size:73% 82%;
+            	background-repeat: no-repeat;
+            	background-position: center;
+            }
+            .woo{
+            	background-image: url("http://file3.instiz.net/data/file3/2018/02/10/2/9/0/290a31660a3ae59622e988dc8ef9ca55.png");
+            	background-size:58% 89%;
+            	background-repeat: no-repeat;
+            	background-position: center;
+            }
+            .han{
+            	background-image: url("https://w.namu.la/s/966060fac07c32a8314e4a4eb041a4c61e7acf948f8312201b1abe2a86ffe0651a6b12903acdc96d76470571df2949503b3a5d357bce4d4e7e90dc1862263ac0fa143647c15a7600ad037c11c8b04dde");
+            	background-size:87% 95%;
+            	background-repeat: no-repeat;
+            	background-position: center;
+            }
+            .oh{
+            	background-image: url("https://stickershop.line-scdn.net/stickershop/v1/product/718/LINEStorePC/main.png;compress=true");
+            	background-size:85% 74%;
+            	background-repeat: no-repeat;
+            	background-position: center;
+            }
+            .cardContainer-box-text{
+            	width: 100%;
+            	font-size:3rem;
+            	text-align: center;
+            	margin-bottom: 30px;
+            }
+            .back p {
+				color: #fff;
+            }
+            .back:not(:first-child){
+            	font-size:20px;
+            }
+             .back-top{
+            	position: absolute;
+            	top:3px;
+            	font-size: 32px;
+            }

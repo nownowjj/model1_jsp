@@ -1,0 +1,46 @@
+#로그인등의 기능
+meLogin=cosmo.member.controller.MemberLoginController
+meJoin=cosmo.member.controller.MemberJoinController
+meLogout=cosmo.member.controller.MemberLogoutController
+meUpdate=cosmo.member.controller.MemberUpdateController
+main = cosmo.common.controller.MainController
+
+#Att출석관련
+#Student(본인출결확인)-컨트롤러 2건
+stuAtt=cosmo.attendence.controller.StudentAttendenceController
+stuAttAll=cosmo.attendence.controller.StudentAttendenceAllController
+
+#Teacher(반출결확인, 출석체크)-컨트롤러 2건
+teaAtt=cosmo.attendence.controller.TeacherAttendenceController
+teaAttCheck=cosmo.attendence.controller.TeacherAttendenceCheckController
+
+#Manager(전체학생출결확인)-컨트롤러 1건
+manAtt=cosmo.attendence.controller.ManagerAttendenceController
+manAttUpdate=cosmo.attendence.controller.ManagerAttendenceUpdateController
+
+#Teacher,Manager(출석수정)-컨트롤러 1건
+teaAttUpdate=cosmo.attendence.controller.TeacherAttendenceUpdateController
+
+#Att출결과 무관한 다른 기능
+#Teacher (나의학생목록확인)-컨트롤러 1건
+teaStuList=cosmo.teacher.controller.TeacherStudentController
+
+#Manager(전체학생목록확인,강사목록확인)-컨트롤러 2건
+manStuList=cosmo.manager.controller.ManagerStudentController
+manTeaList=cosmo.manager.controller.ManagerTeacherController
+#meScoreDetail=cosmo.~~~~~MeScoreDetailController   selectone(student_id)
+
+#board 기능
+boInsert=cosmo.board.controller.BoardInsertController
+boAllList=cosmo.board.controller.BoardAllListController
+boUpdate=cosmo.board.controller.BoardUpdateController
+boDelete=cosmo.board.controller.BoardDeleteController
+boDetail=cosmo.board.controller.BoardDetailController
+
+#성적관련
+grMeList=cosmo.records.controller.CosmoMeListController
+grInsert=cosmo.records.controller.CosmoInsertController
+grUpdate=cosmo.records.controller.CosmoUpdateController
+grAllList=cosmo.records.controller.CosmoAllListController
+#grDelete=cosmo.records.controller.CosmoDeleteController
+grInsertdata=cosmo.records.controller.CosmoInsertdataController
